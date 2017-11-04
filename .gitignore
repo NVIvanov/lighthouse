@@ -1,6 +1,6 @@
 .gradle
 /build/
-*/gradle/
+!gradle-wrapper.jar
 
 ### STS ###
 .apt_generated
@@ -36,4 +36,4 @@ nbdist/
 
 /indexer/out/
 /web/out/
-/gradle/
+/gradle/wrapper/gradle-wrapper.properties
