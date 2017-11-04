@@ -1,0 +1,46 @@
+buildscript {
+	ext {
+		springBootVersion = '1.5.8.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'scala'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+group = 'org.lighthouse'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+	maven {
+		url "https://repo.boundlessgeo.com/main/"
+	}
+	maven {
+		url 'https://jitpack.io'
+	}
+}
+
+bootRepackage  {
+	enabled = false
+}
+
+
+dependencies {
+	compile project(':indexer')
+	compile 'net.ruippeixotog:scala-scraper_2.11:2.0.0'
+	compile 'org.scala-lang:scala-library:2.11.8'
+	compile 'org.scala-lang:scala-compiler:2.11.8'
+	compile 'org.scala-lang:scala-reflect:2.11.8'
+	testCompile 'org.scalatest:scalatest_2.11:3.0.0'
+	compile('org.springframework.boot:spring-boot-starter')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}

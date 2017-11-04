@@ -1,0 +1,39 @@
+.gradle
+/build/
+*/gradle/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+/crawler/target/
+/crawler/out/
+/domain/build/
+/web/target/
+/crawler/data/
+/domain/out/
+/export/build/
+/export/out/
+/crawler/Болгария/
+/crawler/crawl/
+
+/indexer/out/
+/web/out/
+/gradle/

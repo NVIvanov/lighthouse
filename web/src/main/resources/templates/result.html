@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+</head>
+
+<body>
+<div th:fragment="resultsList" id="results-block">
+    <!--/*@thymesVar id="official" type="org.lighthouse.web.vo.OfficialVO"*/-->
+    <div class="card">
+        <div class="card-block">
+            <div style="padding: 20px">
+                <h4 class="card-title" th:utext="${official.name}"></h4>
+                <h6 class="card-subtitle mb-2 text-muted" th:utext="${official.function}"></h6>
+            </div>
+            <div th:each="entry: ${official.declarations}" style="padding: 15px">
+                <p class="card-text" th:utext="${entry.key}"></p>
+                <div class="list-group">
+                    <div th:each="declaration: ${entry.getValue()}">
+                        <a href="#" class="list-group-item list-group-item-action" th:utext="${declaration.type}" th:href="${declaration.link}"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="result404" style="text-align: center">
+    <h2>Данных не найдено</h2>
+</div>
+</body>
+</html>

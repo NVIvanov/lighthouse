@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Вход</title>
+    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container">
+    <form class="form-signin" th:action="@{/login}" method="post">
+        <h2 class="form-signin-heading">Авторизация</h2>
+        <label for="username" class="sr-only">Имя пользователя</label>
+        <input type="text" id="username" name="username" class="form-control" placeholder="Email address" required="" autofocus=""/>
+        <label for="password" class="sr-only">Пароль</label>
+        <input type="password" id="password" name="password" class="form-control" placeholder="Password" required=""/>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" value="remember-me"/>Запомнить меня
+            </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
+    </form>
+</div>
+</body>
+</html>
