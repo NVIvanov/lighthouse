@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class CSVUtils {
 
-    private static final char DEFAULT_SEPARATOR = ',';
+    private static final char DEFAULT_SEPARATOR = ';';
 
     public static void writeLine(StringBuilder sb, List<String> values) throws IOException {
         writeLine(sb, values, DEFAULT_SEPARATOR, ' ');

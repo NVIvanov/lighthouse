@@ -1,5 +1,6 @@
 package org.lighthouse.web.controllers;
 
+import net.ruippeixotog.scalascraper.util.ProxyUtils;
 import org.lighthouse.domain.entities.Settings;
 import org.lighthouse.domain.service.SettingsService;
 import org.lighthouse.web.vo.SettingsVO;
@@ -47,6 +48,11 @@ public class SettingsController {
         settingsService.setExportType(Settings.ExportType.valueOf(vo.getExportType()));
         settingsService.setProxyMode(vo.getProxyMode());
         settingsService.setProxySettings(vo.getProxyHost(), vo.getProxyPort());
+        if (vo.getProxyMode()) {
+            ProxyUtils.setProxy(vo.getProxyHost(), vo.getProxyPort());
+        } else {
+            ProxyUtils.removeProxy();
+        }
     }
 
 }

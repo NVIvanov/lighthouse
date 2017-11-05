@@ -18,7 +18,7 @@
                 <p class="card-text" th:utext="${entry.key}"></p>
                 <div class="list-group">
                     <div th:each="declaration: ${entry.getValue()}">
-                        <a href="#" class="list-group-item list-group-item-action" th:utext="${declaration.type}" th:href="${declaration.link}"></a>
+                        <a href="#" target="_blank" class="list-group-item list-group-item-action" th:utext="${declaration.type}" th:href="${declaration.link}"></a>
                     </div>
                 </div>
             </div>
