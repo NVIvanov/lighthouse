@@ -1,0 +1,18 @@
+language: java
+dist: trusty
+branches:
+  only:
+    - master
+jdk:
+  - oraclejdk8
+services:
+  - postgresql
+before_script:
+  - psql -c "CREATE DATABASE lighthouse_db;" -U postgres
+  - psql -c "CREATE USER lighthouse_server WITH PASSWORD 'lighthouse_password';" -U postgres
+
+deploy:
+  provider: heroku
+  api-key:
+    secure: $HEROKU_API_KEY
+  app: lighthouse-mephi
