@@ -6,6 +6,7 @@ import org.lighthouse.domain.service.SettingsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.nio.file.Paths;
 import java.util.Optional;
 
 /**
@@ -15,7 +16,7 @@ import java.util.Optional;
 
 @Service
 public class SettingsServiceImpl implements SettingsService {
-    private static final String DEFAULT_EXPORT_PATH = System.getProperty("user.dir");
+    private static final String DEFAULT_EXPORT_PATH = Paths.get(System.getProperty("user.dir"), "src", "main", "resources", "static").toString();
     private static final String DEFAULT_INDEXING_CRON = "0 * * * * *";
     private final SettingsRepository settingsRepository;
 
