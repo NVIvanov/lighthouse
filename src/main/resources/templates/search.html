@@ -5,7 +5,7 @@
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <link href="/font/css/open-iconic-bootstrap.css" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-bootstrap/0.5pre/css/custom-theme/jquery-ui-1.10.0.custom.css" rel="stylesheet"/>
-    <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
+    <script src="https://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
     <script type="text/javascript" th:src="@{/js/functions.js}"></script>
@@ -54,6 +54,18 @@
             var header = $('#_csrf_header').attr('content');
             $.ajax({
                 url: encodeURI("/api/indexer/start?countryName=" + countryName()),
+                type: 'post',
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader(header, token)
+                }
+            })
+        }
+
+        function exportFile() {
+            var token = $('#_csrf').attr('content');
+            var header = $('#_csrf_header').attr('content');
+            $.ajax({
+                url: encodeURI("/api/export?countryName=" + countryName()),
                 type: 'post',
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader(header, token)
@@ -122,6 +134,11 @@
                     Индексация
                 </button>
             </div>
+            <div style="padding-right: 30px">
+                <button class="btn btn-sm align-middle btn-outline-primary" id="export-button" type="button" data-toggle="modal" data-target="#export_modal">
+                    Экспорт
+                </button>
+            </div>
             <div class="progress" id="index_progress"  data-toggle="tooltip" data-placement="right" title="Индексация выполняется">
                 <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="1" style="width: 100px"></div>
             </div>
@@ -184,6 +201,26 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
                     <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="startIndex()">Начать индексацию</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="export_modal" tabindex="-1" role="dialog" aria-labelledby="export_confirmation_label" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="export_confirmation_label">Подтверждение операции</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Выгрузить данные по текущей стране?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="exportFile()">Начать выгрузку</button>
                 </div>
             </div>
         </div>

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -33,8 +34,13 @@ public class LocalExportStrategy implements ExportStrategy {
             if (!Files.exists(countryPath)) {
                 Files.createDirectory(countryPath);
             }
-            file = Files.createFile(Paths.get(settingsService.getExportPath(), country, "declarations-" + country + "-" + year + ".csv"));
-            Files.write(file, content.getBytes());
+            Path tmp = Paths.get(settingsService.getExportPath(), country, "declarations-" + country + "-" + year + ".csv");
+            if (Files.exists(Paths.get(settingsService.getExportPath(), country, "declarations-" + country + "-" + year + ".csv"))){
+                file = tmp;
+            } else {
+                file = Files.createFile(tmp);
+            }
+            Files.write(file, content.getBytes(Charset.forName("windows-1251")));
         } catch (IOException e) {
             e.printStackTrace();
         }
