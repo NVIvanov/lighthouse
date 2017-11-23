@@ -48,7 +48,7 @@ trait Crawler {
         Thread.sleep(settingsService.getCrawlingInterval.longValue())
         if (isTerminal(root)) {
           val declaration = parseDeclaration(page, root)
-          declarationService.saveDeclaration(declaration)
+          declarationService.saveDeclaration(declaration, page)
         }
         visitedLinks += root
         val links = page >> elementList("div") >?> attr("href")("a")

@@ -1,5 +1,6 @@
 package org.lighthouse.crawler.services
 
+import net.ruippeixotog.scalascraper.model.Document
 import org.lighthouse.api.Declaration
 
 /**
@@ -7,5 +8,5 @@ import org.lighthouse.api.Declaration
   *         on 23.10.2017.
   */
 trait DeclarationService {
-  def saveDeclaration(declaration: Declaration): Unit
+  def saveDeclaration(declaration: Declaration, page: Document): Unit
 }

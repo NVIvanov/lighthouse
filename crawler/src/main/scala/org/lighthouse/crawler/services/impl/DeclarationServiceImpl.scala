@@ -4,6 +4,7 @@ import java.time.LocalDateTime
 import java.util
 import java.util.function.Supplier
 
+import net.ruippeixotog.scalascraper.model.Document
 import org.lighthouse.api.Declaration
 import org.lighthouse.crawler.services.DeclarationService
 import org.lighthouse.domain.entities
@@ -36,7 +37,7 @@ class DeclarationServiceImpl extends DeclarationService{
   @Autowired
   var solrIndexService: SolrIndexerService = _
 
-  override def saveDeclaration(declaration: Declaration): Unit = {
+  override def saveDeclaration(declaration: Declaration, page: Document): Unit = {
     val declarationOpt = jpaRepository.
       findDeclarationByOfficialNameAndOfficialCountryNameAndYearAndType(declaration.name, declaration.country, declaration.year,
         Type.valueOf(declaration.`type`))
@@ -57,7 +58,8 @@ class DeclarationServiceImpl extends DeclarationService{
       official.setCountry(country)
       official.setName(declaration.name)
       officialRepository.save(official)
-      val declarationModel = new org.lighthouse.domain.entities.Declaration(official, declaration.year, Type.valueOf(declaration.`type`))
+      val declarationModel = new org.lighthouse.domain.entities.Declaration(official,
+        declaration.year, Type.valueOf(declaration.`type`), page.toHtml.getBytes)
       declarationModel.setUrl(declaration.link)
       jpaRepository.save(declarationModel)
       var declarations = official.getDeclaration

@@ -31,6 +31,9 @@ public class Declaration {
     @NonNull
     private Type type;
 
+    @NonNull
+    private byte[] body;
+
     public enum Type {
         PROPERTY, FIELD, BOTH
     }
