@@ -59,7 +59,7 @@ class DeclarationServiceImpl extends DeclarationService{
       official.setName(declaration.name)
       officialRepository.save(official)
       val declarationModel = new org.lighthouse.domain.entities.Declaration(official,
-        declaration.year, Type.valueOf(declaration.`type`), page.toHtml.getBytes)
+        declaration.year, Type.valueOf(declaration.`type`), page.toHtml)
       declarationModel.setUrl(declaration.link)
       jpaRepository.save(declarationModel)
       var declarations = official.getDeclaration

@@ -32,7 +32,7 @@ public class Declaration {
     private Type type;
 
     @NonNull
-    private byte[] body;
+    private String body;
 
     public enum Type {
         PROPERTY, FIELD, BOTH
