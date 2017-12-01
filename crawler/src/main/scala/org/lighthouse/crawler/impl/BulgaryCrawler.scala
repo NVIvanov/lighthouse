@@ -10,6 +10,7 @@ import net.ruippeixotog.scalascraper.model.Document
 import org.lighthouse.api.{Crawler, Declaration}
 import org.lighthouse.domain.entities.Declaration.Type._
 import org.slf4j.{Logger, LoggerFactory}
+import scala.collection.JavaConversions._
 
 /**
   * @author nivanov 
@@ -54,7 +55,9 @@ class BulgaryCrawler(browser: HtmlUnitBrowser, jsoupBrowser: JsoupBrowser) exten
     if (string.endsWith("xml")) {
       jsoupBrowser.parseInputStream(new URL(string).openStream())
     } else {
-      browser.get(string)
+      val res = browser.get(string)
+      browser.underlying.getWebWindows.foreach(_.getJobManager.removeAllJobs())
+      res
     }
   }
 

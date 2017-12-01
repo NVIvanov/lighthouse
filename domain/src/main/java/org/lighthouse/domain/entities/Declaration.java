@@ -32,6 +32,7 @@ public class Declaration {
     private Type type;
 
     @NonNull
+    @Column(columnDefinition = "text")
     private String body;
 
     public enum Type {
