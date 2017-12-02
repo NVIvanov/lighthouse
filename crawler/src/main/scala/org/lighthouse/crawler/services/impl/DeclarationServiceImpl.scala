@@ -5,6 +5,7 @@ import java.util
 import java.util.function.Supplier
 
 import net.ruippeixotog.scalascraper.model.Document
+import org.apache.commons.lang3.text.WordUtils
 import org.lighthouse.api.Declaration
 import org.lighthouse.crawler.services.DeclarationService
 import org.lighthouse.domain.entities
@@ -38,8 +39,9 @@ class DeclarationServiceImpl extends DeclarationService{
   var solrIndexService: SolrIndexerService = _
 
   override def saveDeclaration(declaration: Declaration, page: Document): Unit = {
+    val name = WordUtils.capitalizeFully(declaration.name)
     val declarationOpt = jpaRepository.
-      findDeclarationByOfficialNameAndOfficialCountryNameAndYearAndType(declaration.name, declaration.country, declaration.year,
+      findDeclarationByOfficialNameAndOfficialCountryNameAndYearAndType(name, declaration.country, declaration.year,
         Type.valueOf(declaration.`type`))
     if (declarationOpt.isPresent && declarationOpt.get().getYear.equals(declaration.year)) {
       declarationOpt.get.setUrl(declaration.link)
@@ -53,10 +55,10 @@ class DeclarationServiceImpl extends DeclarationService{
       country.setLastUpdate(LocalDateTime.now())
       countryRepository.save(country)
 
-      val official = officialRepository.findOfficialByName(declaration.name).orElse(new Official())
+      val official = officialRepository.findOfficialByName(name).orElse(new Official())
       official.setFunction(declaration.function)
       official.setCountry(country)
-      official.setName(declaration.name)
+      official.setName(name)
       officialRepository.save(official)
       val declarationModel = new org.lighthouse.domain.entities.Declaration(official,
         declaration.year, Type.valueOf(declaration.`type`), page.toHtml)

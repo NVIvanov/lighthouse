@@ -54,6 +54,7 @@ public class SolrIndexerServiceImpl implements SolrIndexerService {
         Optional<List<String>> result = Stream.of(nameLike.split("\\s+"))
                 .map(s -> repository.findByOfficialStartingWithAndCountry(s, countryName).stream()
                         .map(DeclarationDocument::getOfficial)
+                        .distinct()
                         .collect(Collectors.toList()))
                 .reduce((list1, list2) -> {
                     list1.retainAll(list2);

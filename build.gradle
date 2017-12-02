@@ -29,6 +29,7 @@ springBoot {
 
 dependencies {
 	compile project(':crawler')
+	compile('org.apache.commons:commons-lang3')
 	compile('org.springframework.boot:spring-boot-starter-security')
 	compile('org.springframework.boot:spring-boot-starter-hateoas')
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
